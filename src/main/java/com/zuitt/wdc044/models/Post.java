@@ -1,6 +1,7 @@
 package com.zuitt.wdc044.models;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity //mark this class as a representation of a database table
 @Table(name="posts") //name the table
@@ -15,6 +16,10 @@ public class Post {
 
     @Column
     private String content;
+
+    @ManyToOne
+    @JoinColumn(name="user_id", nullable = false)
+    private User user;
 
     //default constructor
     public Post(){}
@@ -41,5 +46,12 @@ public class Post {
         this.content = content;
     }
 
+    public User getUser(){
+        return user;
+    }
+
+    public void setUser(User user){
+        this.user = user;
+    }
 
 }
