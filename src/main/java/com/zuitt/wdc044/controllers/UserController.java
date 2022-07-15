@@ -19,6 +19,7 @@ public class UserController {
     @Autowired
     UserService userService;
 
+
     @RequestMapping(value = "/users/register", method = RequestMethod.POST)
     public ResponseEntity<Object> register(@RequestBody Map<String, String> body) throws UserException {
         String username = body.get("username");
@@ -36,7 +37,18 @@ public class UserController {
             return new ResponseEntity<>("User registered successfully", HttpStatus.CREATED);
         }
 
+    }
 
+
+
+    @RequestMapping(value = "users/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Object> updateUser(@PathVariable Long id, @RequestHeader(value = "Authorization") String stringToken, @RequestBody User user){
+        return userService.updateUser(id, stringToken, user);
+    }
+
+    @RequestMapping(value = "users/{userId}", method = RequestMethod.DELETE)
+    public ResponseEntity<Object> deleteUser(@PathVariable Long userId, @RequestHeader(value = "Authorization") String stringToken){
+        return userService.deleteUser(userId, stringToken);
     }
 
 

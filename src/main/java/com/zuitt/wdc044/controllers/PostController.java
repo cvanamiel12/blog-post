@@ -2,6 +2,7 @@ package com.zuitt.wdc044.controllers;
 
 import com.zuitt.wdc044.models.Post;
 import com.zuitt.wdc044.services.PostService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,4 +30,17 @@ public class PostController {
         //return postService.getPosts() in ResponseEntity
         return new ResponseEntity<>(postService.getPosts(), HttpStatus.OK);
     }
+
+
+    @RequestMapping(value = "/posts/{postId}", method = RequestMethod.PUT)
+    public ResponseEntity<Object> updatePost(@PathVariable Long postId, @RequestHeader(value = "Authorization") String stringToken, @RequestBody Post post){
+        return postService.updatePost(postId, stringToken, post);
+    }
+
+    @RequestMapping(value = "/posts/{postId}", method = RequestMethod.DELETE)
+    public ResponseEntity<Object> deletePost(@PathVariable Long postId,@RequestHeader(value = "Authorization") String stringToken) {
+        return postService.deletePost(postId, stringToken);
+    }
+
+
 }
